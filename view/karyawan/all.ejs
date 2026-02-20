@@ -1,0 +1,44 @@
+Halama data semua karyawan
+<%#= JSON.stringify(data_karyawan) %>
+
+  <!-- teknik buka tutup tag ejs -->
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Jenis Kelamin</th>
+        <th colspan="2">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for( let i=0; i < data_karyawan.length; i++ ) { %>
+        <tr>
+          <td>
+            <%= data_karyawan[i].nama %>
+          </td>
+          <td>
+            <%= data_karyawan[i].jenis_kelamin %>
+          </td>
+          <td style="padding:5px">
+            <a href="/karyawan/detail/<%= data_karyawan[i].id %>">
+              <button>Detil</button>
+            </a>
+          </td>
+          <!-- <td style="padding:5px">
+            <a href="/karyawan/hapus/<%= data_karyawan[i].id %>"
+              onclick="return confirm('hapus karyawan <%= data_karyawan[i].nama %> ?')">
+              <button>Hapus</button>
+            </a>
+          </td> -->
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
+  <!-- teknik 1 tag ejs -->
+  <%# __append('<ul>')
+    for (const i in data_karyawan) {
+    __append(`<li>${data_karyawan[i].nama} (${data_karyawan[i].jenis_kelamin})</li>`)
+    }
+    __append('</ul>')
+    %>

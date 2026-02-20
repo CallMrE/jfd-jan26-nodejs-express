@@ -1,0 +1,15 @@
+<h1>Detil Pengalaman</h1>
+<ul>
+  <li>Nama: <%= nama %>
+  </li>
+  <li>Tempat tinggal: <%= alamat %>
+  </li>
+  <li>Profesi: <%= posisi %>
+  </li>
+  <li>Kantor: <%= perusahaan %>
+  </li>
+  <li>Gaji: Rp. <%= gaji.toLocaleString('id-ID') %>
+  </li>
+  <li>Status pajak: <%= (gaji> 10000000) ? 'kena pajak' : 'tidak perlu bayar pph' %>
+  </li>
+</ul>
