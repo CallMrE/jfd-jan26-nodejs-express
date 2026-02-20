@@ -30,6 +30,17 @@
         <label for="" style="vertical-align: top;">Alamat</label>
         <textarea name="form_alamat"></textarea>
       </div>
+      <div style="margin-bottom: 10px;">
+        <label for="">Agama</label>
+        <select name="form_agama">
+          <option value="" selected>-- pilih --</option>
+          <% for( let i=0; i < agama.length; i++ ) { %>
+            <option value="<%= agama[i].id %>">
+              <%= agama[i].nama %>
+            </option>
+            <% } %>
+        </select>
+      </div>
 
       <button type="submit">simpan</button>
     </form>

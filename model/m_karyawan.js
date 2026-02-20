@@ -59,6 +59,7 @@ module.exports =
                 tanggal_lahir   : req.body.form_tgl_lahir,
                 jenis_kelamin   : req.body.form_gender,
                 alamat          : req.body.form_alamat,
+                agama_id        : req.body.form_agama,
                 jabatan_id      : 1,
             }]
         )
