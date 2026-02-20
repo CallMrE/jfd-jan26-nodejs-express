@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3005
 
+app.use(express.urlencoded({extended:false}))
 app.set('view engine','ejs') // setting penggunan tampate engine untuk express
 app.set('views','./view') //setting enunaan folder untuk menyimpan file .ejs
 
@@ -42,7 +43,20 @@ app.get('/karyawan/detail/:id_kry', async (req,res)=>{
 //   if (proses_hapus.affectedRows > 0) {
 //         res.redirect('karyawan/all')
 //       }
-// })
+// }),
+app.get('/karyawan/tambah', (req,res)=>{
+    res.render('karyawan/form-tambah')
+}),
+app.post('/karyawan/proses-insert', async (req,res)=>{
+    try {
+        let proses_insert = await require('./model/m_karyawan').insert_1_karyawan(req)
+        if (proses_insert.affectedRows > 0) {
+            res.redirect('/karyawan')
+        }
+    } catch (error) {
+        res.redirect('/karyawan/tambah')
+    }
+}),
 app.listen(port, () => {
   console.log(`Aplikasi di port http://localhost:${port}`)
 })
