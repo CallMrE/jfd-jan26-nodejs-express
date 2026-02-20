@@ -28,6 +28,7 @@ app.get('/pengalaman', (req, res) => {
 // asynchronous = berjalan tidak berurutan
 app.get('/karyawan', async (req,res)=>{
   res.render('karyawan/all', {
+    req:req,
        data_karyawan: await require('./model/m_karyawan').get_semua_karyawan()
   })
 })
@@ -45,16 +46,16 @@ app.get('/karyawan/detail/:id_kry', async (req,res)=>{
 //       }
 // }),
 app.get('/karyawan/tambah', (req,res)=>{
-    res.render('karyawan/form-tambah')
+    res.render('karyawan/form-tambah',{req:req})
 }),
 app.post('/karyawan/proses-insert', async (req,res)=>{
     try {
         let proses_insert = await require('./model/m_karyawan').insert_1_karyawan(req)
         if (proses_insert.affectedRows > 0) {
-            res.redirect('/karyawan')
+            res.redirect('/karyawan?success_msg=berhasil input karyawan baru a/n '+ req.body.form_nama)
         }
     } catch (error) {
-        res.redirect('/karyawan/tambah')
+        res.redirect('/karyawan/tambah'?error_msg='+ error.errno +': '+ error.sqlMassage')
     }
 }),
 app.listen(port, () => {

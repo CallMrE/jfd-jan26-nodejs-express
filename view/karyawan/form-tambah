@@ -1,0 +1,35 @@
+<h1>Input karyawan baru</h1>
+<hr>
+<% if (req.query.error_msg) { %>
+  <h3>
+    <%= req.query.error_msg %>
+  </h3>
+  <% } %>
+
+    <form action="/karyawan/proses-insert" method="post">
+      <div style="margin-bottom: 10px;">
+        <label for="">Nama</label>
+        <input type="text" name="form_nama">
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="">Tanggal lahir</label>
+        <input type="date" name="form_tgl_lahir">
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="">Jenis kelamin</label>
+        <select name="form_gender">
+          <option value="" selected>-- pilih --</option>
+          <option value="L">Laki</option>
+          <option value="P">Perempuan</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 10px;">
+        <label for="" style="vertical-align: top;">Alamat</label>
+        <textarea name="form_alamat"></textarea>
+      </div>
+
+      <button type="submit">simpan</button>
+    </form>
