@@ -1,4 +1,4 @@
-<h1>Input karyawan baru</h1>
+<h1>Edit karyawan</h1>
 <hr>
 <% if (req.query.error_msg) { %>
   <h3>
@@ -6,44 +6,42 @@
   </h3>
   <% } %>
 
-    <form action="/karyawan/proses-insert" method="post">
+    <form action="/karyawan/proses-update/<%= profil_karyawan[0].id %>" method="post">
       <div style="margin-bottom: 10px;">
         <label for="">Nama</label>
-        <input type="text" name="form_nama">
+        <input type="text" name="form_nama" value="<%= profil_karyawan[0].nama %>">
       </div>
 
       <div style="margin-bottom: 10px;">
         <label for="">Tanggal lahir</label>
-        <input type="date" name="form_tgl_lahir">
+        <input type="date" name="form_tgl_lahir"
+          value="<%= moment(profil_karyawan[0].tanggal_lahir).format('YYYY-MM-DD') %>">
       </div>
 
       <div style="margin-bottom: 10px;">
         <label for="">Jenis kelamin</label>
         <select name="form_gender">
-          <option value="" selected>-- pilih --</option>
-          <option value="L">Laki</option>
-          <option value="P">Perempuan</option>
+          <option value="L" <%=(profil_karyawan[0].jenis_kelamin=='L' ) ? 'selected' : '' %>>Laki</option>
+          <option value="P" <%=(profil_karyawan[0].jenis_kelamin=='P' ) ? 'selected' : '' %>>Perempuan</option>
         </select>
       </div>
 
       <div style="margin-bottom: 10px;">
         <label for="" style="vertical-align: top;">Alamat</label>
-        <textarea name="form_alamat"></textarea>
+        <textarea name="form_alamat"><%= profil_karyawan[0].alamat %></textarea>
       </div>
       <div style="margin-bottom: 10px;">
         <label for="">Agama</label>
         <select name="form_agama">
           <option value="" selected>-- pilih --</option>
           <% for( let i=0; i < agama.length; i++ ) { %>
-            <option value="<%= agama[i].id %>">
+            <option value="<%= agama[i].id %>" <%=(profil_karyawan[0].agama_id==agama[i].id) ? 'selected' : '' %>>
               <%= agama[i].nama %>
             </option>
             <% } %>
         </select>
       </div>
-
-      <button type="submit">simpan</button>
-
+      <button type="submit">Upadate</button>
     </form>
     <a href="/karyawan">
       <button>Data karyawan</button>

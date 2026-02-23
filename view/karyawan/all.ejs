@@ -33,6 +33,11 @@ Halama data semua karyawan
                   <button>Detil</button>
                 </a>
               </td>
+              <td style="padding:5px">
+                <a href="/karyawan/edit/<%= data_karyawan[i].id %>">
+                  <button>Edit</button>
+                </a>
+              </td>
               <!-- <td style="padding:5px">
             <a href="/karyawan/hapus/<%= data_karyawan[i].id %>"
               onclick="return confirm('hapus karyawan <%= data_karyawan[i].nama %> ?')">
@@ -43,7 +48,6 @@ Halama data semua karyawan
             <% } %>
         </tbody>
       </table>
-
       <!-- teknik 1 tag ejs -->
       <%# __append('<ul>')
         for (const i in data_karyawan) {

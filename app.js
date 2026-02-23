@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const moment = require('moment')
 const port = 3005
 
 app.use(express.urlencoded({extended:false}))
@@ -26,41 +27,16 @@ app.get('/pengalaman', (req, res) => {
 })
 // synchronous = berjalan berurutan
 // asynchronous = berjalan tidak berurutan
-app.get('/karyawan', async (req,res)=>{
-  res.render('karyawan/all', {
-    req:req,
-       data_karyawan: await require('./model/m_karyawan').get_semua_karyawan()
-  })
-})
-app.get('/karyawan/detail/:id_kry', async (req,res)=>{
-  let id_kry = req.params.id_kry
-  res.render('karyawan/profil',{
-       profil_karyawan: await require('./model/m_karyawan').get_1_karyawan(id_kry)
-  })
-}),
-// app.get('/karyawan/hapus/:id_kry', async (req,res)=>{
-//   let id_kry = req.params.id_kry
-//   let proses_hapus = await require('./model/m_karyawan').hapus_1_karyawan(id_kry)
-//   if (proses_hapus.affectedRows > 0) {
-//         res.redirect('karyawan/all')
-//       }
-// }),
-app.get('/karyawan/tambah', async (req,res)=>{
-    res.render('karyawan/form-tambah', {
-        req: req,
-        agama: await require('./model/m_agama').get_semua_agama(),
-    })
-}),
-app.post('/karyawan/proses-insert', async (req,res)=>{
-    try {
-        let proses_insert = await require('./model/m_karyawan').insert_1_karyawan(req)
-        if (proses_insert.affectedRows > 0) {
-            res.redirect('/karyawan?success_msg=berhasil input karyawan baru a/n '+ req.body.form_nama)
-        }
-    } catch (error) {
-        res.redirect('/karyawan/tambah'?error_msg='+ error.errno +': '+ error.sqlMassage')
-    }
-}),
+let c_karyawan = require('./controller/c_karyawan')
+
+app.get('/karyawan', c_karyawan.index)
+app.get('/karyawan/detail/:id_kry', c_karyawan.detail)
+// app.get('/karyawan/hapus/:id_kry', c_karyawan.hapus)
+app.get('/karyawan/tambah', c_karyawan.tambah)
+app.post('/karyawan/proses-insert', c_karyawan.proses_insert)
+app.get('/karyawan/edit/:id_kry', c_karyawan.edit)
+app.post('/karyawan/proses-update/:id_kry', c_karyawan.proses_update)
+
 app.listen(port, () => {
   console.log(`Aplikasi di port http://localhost:${port}`)
 })
